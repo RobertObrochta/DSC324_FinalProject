@@ -6,8 +6,14 @@ df = pd.read_csv(r'Downloads/archive/US_Accidents_Dec20_updated.csv')
 df.dropna(inplace = True)
 df.drop(inplace = True, columns = ["ID", "Start_Time", "End_Time", "Description", "Number", "Street", "County", "Zipcode", "Country", "Timezone", "Airport_Code", "Weather_Timestamp"]) # remove all unwanteds
 
+# min/max wind direction
 mnwd = 0
 mxwd = 0
+
+# min/max weather condition
+mnwc = 0
+mxwc = 0
+
 # change categorical to numeric
 for col_name in df.columns:
     df[col_name].replace(True, 1, inplace = True)
@@ -19,7 +25,11 @@ for col_name in df.columns:
 mxwd = max(df["Wind_Direction"])
 mnwd = min(df["Wind_Direction"])
 
+mxwc = max(df["Weather_Condition"])
+mnwc = min(df["Weather_Condition"])
+
 df.to_csv("Downloads/archive/modified/US_Accidents_complete.csv", index = False)
 print(os.path.getsize("Downloads/archive/modified/US_Accidents_complete.csv"))
 print(f"Min Wind_Dir: {mnwd}\nMax Wind_Dir: {mxwd}")
+print(f"Min Weather_Condition: {mnwc}\nMax Weather_Condition: {mxwc}")
 print("\nDone")
